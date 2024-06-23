@@ -3,7 +3,7 @@
 GET {{apiUrl}}/genres
 Accept: application/json
 Accept-Charset: UTF-8
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 
 
@@ -11,7 +11,7 @@ Accept-Charset: UTF-8
 GET {{apiUrl}}/movies
 Accept: application/json
 Accept-Charset: UTF-8
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 
 
@@ -20,7 +20,7 @@ POST {{apiUrl}}/movies
 Accept: application/json
 Accept-Charset: UTF-8
 Content-Type: application/json
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 {
     "Name": "Rebocop",
@@ -44,7 +44,7 @@ GET {{apiUrl}}/movies/{{movieId}}
 # Pozor {{movieId}}} je převzato z předcházejícího dotazu...
 Accept: application/json
 Accept-Charset: UTF-8
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 
 
@@ -54,7 +54,7 @@ PUT {{apiUrl}}/movies/{{movieId}}
 Accept: application/json
 Accept-Charset: UTF-8
 Content-Type: application/json
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 
 {
     "Name": "Robocop",
@@ -78,4 +78,4 @@ DELETE {{apiUrl}}/movies/{{movieId}}
 Accept: application/json
 Accept-Charset: UTF-8
 Content-Type: application/json
-#Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
