@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use App\Models\Genre;
 use App\Models\Movie;
@@ -66,7 +66,7 @@ class MovieControllerTest extends TestCase
         $movieId = Movie::all()->pluck('id')->random();
 
         $this
-            ->get('/api/v1/movies/' . $movieId)
+            ->get('/api/v1/movies/'.$movieId)
             ->assertStatus(200)
             ->assertJson(function (AssertableJson $json) {
                 $json->hasAll([
@@ -85,9 +85,9 @@ class MovieControllerTest extends TestCase
         $movieId = Movie::all()->pluck('id')->random();
 
         $this
-            ->put('/api/v1/movies/' . $movieId, [
+            ->put('/api/v1/movies/'.$movieId, [
                 'Name' => 'Updated movie',
-                'Genres' => Genre::select()->limit(3)->pluck('id')->toArray()
+                'Genres' => Genre::select()->limit(3)->pluck('id')->toArray(),
             ])
             ->assertStatus(200)
             ->assertJson(function (AssertableJson $json) {
@@ -113,7 +113,7 @@ class MovieControllerTest extends TestCase
         $movieId = Movie::all()->pluck('id')->random();
 
         $this
-            ->delete('/api/v1/movies/' . $movieId)
+            ->delete('/api/v1/movies/'.$movieId)
             ->assertStatus(200);
     }
 }

@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+    api:
+        build:
+            args:
+                user: noname
+                uid: 1000
+            context: ./.docker/php
+            dockerfile: Dockerfile
+        image: moviez
+        container_name: moviez-api
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - moviez
+    nginx:
+        image: nginx:1.17-alpine
+        container_name: moviez-nginx
+        restart: unless-stopped
+        ports:
+            - "8001:80"
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx:/etc/nginx/conf.d
+        networks:
+            - moviez
+    swagger:
+        image: swaggerapi/swagger-ui
+        container_name: moviez-swagger
+        ports:
+            - "8002:8080"
+        volumes:
+            - ./docs/Swagger/v1.yaml:/v1.yaml
+        environment:
+            SWAGGER_JSON: /v1.yaml
+        networks:
+            - moviez
+networks:
+    moviez:
+        driver: bridge
