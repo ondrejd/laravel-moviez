@@ -12,7 +12,6 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $name
  * @property string|null $color
- * @property-read User|null $user
  * @property-read Collection<Movie>|Movie[] $movies
  */
 class Genre extends Model
@@ -42,14 +41,6 @@ class Genre extends Model
      * @var array
      */
     protected $with = [/*'movies'*/];
-
-    /**
-     * User that created this genre.
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
     /**
      * Movies that has the genre attached.
