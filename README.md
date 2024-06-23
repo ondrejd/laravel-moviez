@@ -42,6 +42,14 @@
 
 ### Spuštění projektu
 
+Nejprve stáhnutí a vytvoření `.env` souboru:
+
+```bash
+git clone git@github.com:ondrejd/laravel-moviez.git
+cd laravel-movie
+cp .env.example .env
+```
+
 #### Lokálně
 
 V terminálu (Linux nebo _WSH_), kde máme nainstalované __PHP__ a __Composer__.
@@ -72,7 +80,6 @@ php ./vendor/bin/pint
 Tady stačí reprodukovat tento postup (pozor napoprvé to chvíli trvá, než se vybuildují kontejnery):
 
 ```bash
-git clone git@github.com:ondrejd/laravel-moviez.git
 docker compose up -d
 docker compose exec api ash -c "composer install"
 docker compose exec api ash -c "./artisan migrate --step --seed"
