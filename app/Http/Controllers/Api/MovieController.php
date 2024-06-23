@@ -37,10 +37,7 @@ class MovieController extends Controller
         $data = $request->toArray();
 
         $movie = Movie::create([
-            /**
-             * @todo Tuto věcičku s uživatelem dokončit !!!
-             */
-            'user_id' => User::all()->random()->id,
+            'user_id' => $request->user()->id,
             'name' => $data['Name'],
             'description' => isset($data['Description']) ? $data['Description'] : null,
             'csfd' => isset($data['Csfd']) ? $data['Csfd'] : null,

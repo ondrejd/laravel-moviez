@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -12,6 +13,7 @@ class MovieControllerTest extends TestCase
     public function test_list_movies(): void
     {
         $this
+            ->sanctumActingAs(User::all()->first())
             ->get('/api/v1/movies')
             ->assertStatus(200)
             ->assertJson(function (AssertableJson $json) {
@@ -33,6 +35,7 @@ class MovieControllerTest extends TestCase
     public function test_create_movie(): void
     {
         $this
+            ->sanctumActingAs(User::all()->first())
             ->post('/api/v1/movies/', [
                 'Name' => 'New movie',
                 'Description' => 'Something...',
@@ -66,6 +69,7 @@ class MovieControllerTest extends TestCase
         $movieId = Movie::all()->pluck('id')->random();
 
         $this
+            ->sanctumActingAs(User::all()->first())
             ->get('/api/v1/movies/'.$movieId)
             ->assertStatus(200)
             ->assertJson(function (AssertableJson $json) {
@@ -82,10 +86,11 @@ class MovieControllerTest extends TestCase
 
     public function test_update_movie(): void
     {
-        $movieId = Movie::all()->pluck('id')->random();
+        $movie = Movie::all()->random();
 
         $this
-            ->put('/api/v1/movies/'.$movieId, [
+            ->sanctumActingAs(User::find($movie->user_id))
+            ->put('/api/v1/movies/'.$movie->id, [
                 'Name' => 'Updated movie',
                 'Genres' => Genre::select()->limit(3)->pluck('id')->toArray(),
             ])
@@ -110,10 +115,23 @@ class MovieControllerTest extends TestCase
 
     public function test_delete_movie(): void
     {
-        $movieId = Movie::all()->pluck('id')->random();
+        $movie = Movie::all()->random();
 
         $this
-            ->delete('/api/v1/movies/'.$movieId)
+            ->sanctumActingAs(User::find($movie->user_id))
+            ->delete('/api/v1/movies/'.$movie->id)
             ->assertStatus(200);
+    }
+
+    public function test_delete_movie_without_authorization(): void
+    {
+        $movie = Movie::all()->random();
+        // Najdeme si uživatele, který určitě film nevytvářel
+        $userIds = array_diff(User::all()->pluck('id')->toArray(), [$movie->user_id]);
+
+        $this
+            ->sanctumActingAs(User::find(array_pop($userIds)))
+            ->delete('/api/v1/movies/'.$movie->id)
+            ->assertStatus(403);
     }
 }

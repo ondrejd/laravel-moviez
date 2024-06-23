@@ -8,11 +8,12 @@
   2. ~~obraz se [Swagger UI](https://swagger.io/tools/swagger-ui/)~~
   3. ~~celé to vyzkoušet~~
   4. ~~postup napsat do hlavního `README.md` (a vymazat stávající postup - ponechat jen docker verzi)~~
-- __přidat Sanctum:__
-  1. upravit `v1.yaml` pro __Swagger__ (sekce _Security_)
-  2. vyzkoušet v [Postman](https://www.postman.com/downloads/) a znova vyexportovat kolekci
-  3. upravit stávající testovací _http requests_
-- odeslat do GitHub repozitáře
+- ~~přidat Sanctum:~~
+  1. ~~upravit `v1.yaml` pro __Swagger__ (sekce _Security_)~~
+  2. ~~vyzkoušet v [Postman](https://www.postman.com/downloads/) a znova vyexportovat kolekci~~
+  3. ~~upravit stávající testovací _http requests_~~
+  4. ~~upravit stávající API testy~~
+  5. ~~odeslat do GitHub repozitáře a mergnout~~
 - zkusit udělat GitHub CI tak, aby se po aktualizaci spustil __PhpStan__ a __PhpUnit__
 - aktualizovat finálně `README.md` a znovu vyzkoušet
 - __nakonec znova přečíst zadání, celé si to zkontrolovat a API jako takové uzavřít, pak jít na FE.__ Případně přidělat ty volitelné sekce, jako je filtrování, stránkování a vyhledávání ve filmech.
@@ -69,3 +70,23 @@ docker compose exec api ash -c "php ./vendor/bin/pint"
 docker compose exec api ash -c "./artisan test"
 docker compose exec api ash -c "./artisan tinker"
 ```
+
+### Použití
+
+#### Autorizace uživatele v API
+
+Pro jednoduchost používáme osobní tokeny vygenerované přes konzolový příkaz, ale příslušný token by šel vygenerovat i na základě přihlašovacího formuláře.
+
+Pokud spustíme aplikaci i s vytvořením testovacích dat (možnost `--seed` u migrací), pak nám stačí spustit příkaz:
+
+```bash
+./artisan app:create-personal-access-token
+```
+
+Případně:
+
+```bash
+docker compose exec api ash -c "./artisan app:create-personal-access-token"
+```
+
+Volby potvrdíme (stačí nám defaultní hodnoty) a vygenerovaný token si zkopírujeme pro použití například ve Swaggeru. Token vygenerovaný příkazem výše s defaultními hodnotami má platnost časově neomezenou.

@@ -4,7 +4,7 @@ info:
   title: Moviez API
   description: |-
     __Ukázkové API zpřístupňující databázi filmů.__
-    
+
     Hlavní vlastnosti:
     - přístup k seznamu filmů a dostupných filmových žánrů
     - možnost pro vytvoření, editaci a smazání filmů

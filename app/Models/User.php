@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
-
-//use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int $id
@@ -25,7 +23,7 @@ use Illuminate\Support\Collection;
  */
 class User extends Authenticatable
 {
-    use //HasApiTokens,
+    use HasApiTokens,
         HasFactory,
         Notifiable;
 

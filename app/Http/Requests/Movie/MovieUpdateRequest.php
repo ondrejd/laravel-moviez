@@ -2,28 +2,27 @@
 
 namespace App\Http\Requests\Movie;
 
+use App\Models\Genre;
+use App\Models\Movie;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MovieUpdateRequest extends FormRequest
 {
     /**
      * Upravení filmu je možné jen pro uživatele, který ho vytvořil.
-     *
-     *
-     * @todo Dokončit !!!
      */
     public function authorize(): bool
     {
-        // if (! $this->user) {
-        //    return false;
-        //}
+        if (! $this->user()) {
+            return false;
+        }
 
-        // /** @var Movie $movie */
-        // $movie = $this->route('movie');
+        /** @var Movie $movie */
+        $movie = $this->route('movie');
 
-        // if ($this->user->id !== $movie->user_id) {
-        //     return false;
-        // }
+        if ($this->user()->id !== $movie->user_id) {
+            return false;
+        }
 
         return true;
     }
@@ -35,8 +34,23 @@ class MovieUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var int[] */
+        $genreIds = Genre::all()->pluck('id')->toArray();
+
         return [
-            //
+            'Name' => ['string', 'required', 'min:1'],
+            'Description' => ['string', 'nullable'],
+            'Genres' => ['array'],
+            'Genres.*' => [
+                'integer',
+                function (string $attribute, mixed $value, \Closure $fail) use ($genreIds): void {
+                    if (! in_array($value, $genreIds, true)) {
+                        $fail('Filmový žánr dle ID nebyl nalezen.');
+                    }
+                },
+            ],
+            'Csfd' => ['url:https', 'nullable'],
+            'Imdb' => ['url:https', 'nullable'],
         ];
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')
-    // ->middleware(['auth:sanctum'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
         Route::prefix('movies')
             ->group(function () {

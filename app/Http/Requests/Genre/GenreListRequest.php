@@ -8,15 +8,12 @@ class GenreListRequest extends FormRequest
 {
     /**
      * Prohlížení filmových žánrů je dostupné pro každého platného uživatele.
-     *
-     *
-     * @todo Dokončit !!!
      */
     public function authorize(): bool
     {
-        // if (! $this->user) {
-        //    return false;
-        // }
+        if (! $this->user()) {
+            return false;
+        }
 
         return true;
     }
