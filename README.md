@@ -1,8 +1,8 @@
 # TODO
 
 - ~~dokončit základní verzi API~~
-- __přidat testy pro modely__
-- __přidat testy pro API__
+- ~~přidat testy pro modely~~
+- ~~přidat testy pro API~~
 - __přidat Sanctum__:
   1. upravit `v1.yaml` pro __Swagger__ (sekce _Security_)
   2. vyzkoušet v [Postman](https://www.postman.com/downloads/) a znova vyexportovat kolekci
@@ -15,6 +15,7 @@
 - odeslat do GitHub repozitáře
 - zkusit udělat GitHub CI tak, aby se po aktualizaci spustil __PhpStan__ a __PhpUnit__
 - aktualizovat finálně `README.md` a znovu vyzkoušet
+- __nakonec znova přečíst zadání, celé si to zkontrolovat a API jako takové uzavřít, pak jít na FE__
 - [!CAUTION] __Front-End__
 
 ## Poznámky pro vývojáře
@@ -38,11 +39,15 @@ Nyní nám běží API na adrese `http://127.0.0.1:8001/api/v1`.
 Pro kvalitu kódu použijte:
 
 ```bash
-./artisan pint
+php ./vendor/bin/pint
 ```
 
 Pro spuštění testů:
 
 ```bash
+# Všechny testy
 ./artisan test
+# Vybraná skupina testů
+./artisan test --testsuite="Feature (API)"
+./artisan test --testsuite="Feature (models)"
 ```

@@ -8,8 +8,7 @@ class MovieStoreRequest extends FormRequest
 {
     /**
      * Vytvoření filmu je dostupné pro každého platného uživatele.
-     * 
-     * @return boolean
+     *
      *
      * @todo Dokončit !!!
      */
@@ -29,7 +28,7 @@ class MovieStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var integer[] */
+        /** @var int[] */
         $genreIds = \App\Models\Genre::all()->pluck('id')->toArray();
 
         return [
@@ -42,7 +41,7 @@ class MovieStoreRequest extends FormRequest
                     if (! in_array($value, $genreIds, true)) {
                         $fail('Filmový žánr dle ID nebyl nalezen.');
                     }
-                }
+                },
             ],
             'Csfd' => ['url:https', 'nullable'],
             'Imdb' => ['url:https', 'nullable'],

@@ -8,8 +8,7 @@ class MovieListRequest extends FormRequest
 {
     /**
      * Prohlížení filmů je dostupné pro každého platného uživatele.
-     * 
-     * @return boolean
+     *
      *
      * @todo Dokončit !!!
      */

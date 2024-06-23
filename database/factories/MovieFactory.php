@@ -50,7 +50,7 @@ class MovieFactory extends Factory
     protected function withFaker()
     {
         $faker = Container::getInstance()->make(Generator::class);
-        
+
         $faker->addProvider(new MovieFaker($faker));
 
         return $faker;
@@ -72,9 +72,6 @@ class MovieFactory extends Factory
         ];
     }
 
-    /**
-     * @return static
-     */
     public function withRandomUser(): static
     {
         if (is_null(static::$users)) {
@@ -86,9 +83,6 @@ class MovieFactory extends Factory
         ]);
     }
 
-    /**
-     * @return static
-     */
     public function withUser(User $user): static
     {
 

@@ -12,9 +12,6 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * @var string $locale
-     */
     protected string $locale = 'cs_CZ';
 
     /**

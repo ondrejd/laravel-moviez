@@ -11,9 +11,6 @@ class GenreController extends Controller
 {
     /**
      * Zobrazí seznam filmových žánrů.
-     *
-     * @param GenreListRequest $request
-     * @return JsonResponse
      */
     public function index(GenreListRequest $request): JsonResponse
     {

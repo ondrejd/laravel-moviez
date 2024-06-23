@@ -6,11 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MovieShowRequest extends FormRequest
 {
-
     /**
      * Detail filmu je dostupný pro každého platného uživatele.
-     * 
-     * @return boolean
+     *
      *
      * @todo Dokončit !!!
      */

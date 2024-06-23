@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property int $user_id
  * @property string $name
  * @property string|null $description
@@ -46,8 +46,6 @@ class Movie extends Model
 
     /**
      * User that created this genre.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -56,8 +54,6 @@ class Movie extends Model
 
     /**
      * Movies that has the genre attached.
-     *
-     * @return BelongsToMany
      */
     public function genres(): BelongsToMany
     {
@@ -66,8 +62,6 @@ class Movie extends Model
 
     /**
      * Model as an array.
-     * 
-     * @return array
      */
     public function toArray(): array
     {

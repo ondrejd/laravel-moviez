@@ -9,8 +9,7 @@ class MovieDestroyRequest extends FormRequest
 {
     /**
      * Smazání filmu je možné jen pro uživatele, který ho vytvořil.
-     * 
-     * @return boolean
+     *
      *
      * @todo Dokončit !!!
      */

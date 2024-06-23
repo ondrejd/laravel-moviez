@@ -4,14 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+
 //use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property \DateTime|string|null $email_verified_at
@@ -64,8 +65,6 @@ class User extends Authenticatable
 
     /**
      * Genres created by the user.
-     *
-     * @return HasMany
      */
     public function genres(): HasMany
     {
@@ -74,8 +73,6 @@ class User extends Authenticatable
 
     /**
      * Movies created by the user.
-     *
-     * @return HasMany
      */
     public function movies(): HasMany
     {

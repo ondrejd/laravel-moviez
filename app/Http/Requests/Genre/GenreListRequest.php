@@ -8,8 +8,7 @@ class GenreListRequest extends FormRequest
 {
     /**
      * Prohlížení filmových žánrů je dostupné pro každého platného uživatele.
-     * 
-     * @return boolean
+     *
      *
      * @todo Dokončit !!!
      */
