@@ -3,12 +3,12 @@
 - ~~dokončit základní verzi API~~
 - ~~přidat testy pro modely~~
 - ~~přidat testy pro API~~
-- __rozjet plnohodnotně Docker__:
+- ~~rozjet plnohodnotně Docker~~:
   1. ~~obraz s API~~
   2. ~~obraz se [Swagger UI](https://swagger.io/tools/swagger-ui/)~~
   3. ~~celé to vyzkoušet~~
   4. ~~postup napsat do hlavního `README.md` (a vymazat stávající postup - ponechat jen docker verzi)~~
-- přidat Sanctum:
+- __přidat Sanctum:__
   1. upravit `v1.yaml` pro __Swagger__ (sekce _Security_)
   2. vyzkoušet v [Postman](https://www.postman.com/downloads/) a znova vyexportovat kolekci
   3. upravit stávající testovací _http requests_
