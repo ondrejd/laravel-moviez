@@ -42,7 +42,7 @@
 
 ### Spuštění projektu
 
-Nejprve stáhnutí a vytvoření `.env` souboru:
+Nejprve stáhnutí projektu a vytvoření `.env` souboru:
 
 ```bash
 git clone git@github.com:ondrejd/laravel-moviez.git
@@ -50,30 +50,7 @@ cd laravel-movie
 cp .env.example .env
 ```
 
-#### Lokálně
-
-V terminálu (Linux nebo _WSH_), kde máme nainstalované __PHP__ a __Composer__.
-
-```bash
-git clone git@github.com:ondrejd/laravel-moviez.git
-cd laravel-moviez
-composer install
-./artisan migrate --step --seed
-./artisan serve --port=8001
-```
-
-Nyní nám běží API na adrese `http://127.0.0.1:8001/api/v1`. Vývojářské nástroje jsou dostupné z konzole:
-
-
-```bash
-# Kontrola/oprava kvality kódu
-php ./vendor/bin/pint
-# Spuštění všech testů
-./artisan test
-# Spuštění vybraných testů
-./artisan test --testsuite="Feature (API)"
-./artisan test --testsuite="Feature (models)"
-```
+Dále si můžeme vybrat jak aplikaci spustíme:
 
 #### Docker
 
@@ -96,6 +73,23 @@ Vývojářské nástroje můžeme spouštět přímo z běžícího kontejneru:
 docker compose exec api ash -c "php ./vendor/bin/pint"
 docker compose exec api ash -c "./artisan test"
 docker compose exec api ash -c "./artisan tinker"
+```
+
+#### Lokálně
+
+V terminálu (Linux nebo _WSH_), kde máme nainstalované __PHP__ a __Composer__.
+
+```bash
+composer install
+./artisan migrate --step --seed
+./artisan serve --port=8001
+```
+
+Nyní nám běží API na adrese `http://127.0.0.1:8001/api/v1`. Vývojářské nástroje jsou dostupné z konzole:
+
+```bash
+php ./vendor/bin/pint
+./artisan test
 ```
 
 ### Použití
