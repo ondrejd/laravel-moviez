@@ -26,9 +26,8 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer 1|Lj22oo2x2STruIUkt9IwsIKgaJswG01rVhnbr8Tq63427f3d",
-								"type": "text",
-								"disabled": true
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -66,9 +65,8 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer 1|Lj22oo2x2STruIUkt9IwsIKgaJswG01rVhnbr8Tq63427f3d",
-								"type": "text",
-								"disabled": true
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -86,9 +84,25 @@
 				},
 				{
 					"name": "Create",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"Name\": \"Rebocop\",\n  \"Description\": \"Movie about robotic cop.\",\n  \"Genres\": [\n    3,\n    5\n  ],\n  \"Csfd\": null,\n  \"Imdb\": null\n}",
@@ -113,9 +127,25 @@
 				},
 				{
 					"name": "Destroy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/movies/{{movie_id}}",
 							"host": [
@@ -133,7 +163,13 @@
 					"name": "Show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/movies/{{movie_id}}",
 							"host": [
@@ -149,9 +185,25 @@
 				},
 				{
 					"name": "Update",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|zZjY8eRhHggNnqtfh1W5KVSFKMd7cKUGSn8IRVfd8927fd22",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"Name\": \"Robocop\",\n  \"Description\": \"Pretty bad movie about robotic cop.\",\n  \"Genres\": [6, 9],\n  \"Csfd\": null,\n  \"Imdb\": null\n}",
