@@ -6,6 +6,7 @@
 
 - je to založeno na frameworku __Laravel__
 - jako databáze je použita SQLite
+- API je popsané jak v [OpenApi](./docs/Swagger/v1.yaml) , tak i v [`.http` souboru](./docs/HttpRequests/v1.http) pro PhpStorm
 - schéma je poměrně jednoduché (jsou zde zobrazeny pouze mnou vytvořené tabulky, ostatní pocházejí přímo z frameworku, včetně _users_, které je tady naznačena):
   ```mermaid
   erDiagram
