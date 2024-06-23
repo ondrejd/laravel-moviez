@@ -46,7 +46,7 @@ Nejprve stáhnutí projektu a vytvoření `.env` souboru:
 
 ```bash
 git clone git@github.com:ondrejd/laravel-moviez.git
-cd laravel-movie
+cd laravel-moviez
 cp .env.example .env
 ```
 
