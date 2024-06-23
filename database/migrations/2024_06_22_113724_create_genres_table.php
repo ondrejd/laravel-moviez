@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->text('name')->index();
             $table->text('color');
-            $table->timestamps();
         });
     }
 

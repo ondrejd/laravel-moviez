@@ -1,23 +1,42 @@
-# TODO
+# API pro filmy
 
-- ~~dokončit základní verzi API~~
-- ~~přidat testy pro modely~~
-- ~~přidat testy pro API~~
-- ~~rozjet plnohodnotně Docker~~:
-  1. ~~obraz s API~~
-  2. ~~obraz se [Swagger UI](https://swagger.io/tools/swagger-ui/)~~
-  3. ~~celé to vyzkoušet~~
-  4. ~~postup napsat do hlavního `README.md` (a vymazat stávající postup - ponechat jen docker verzi)~~
-- ~~přidat Sanctum:~~
-  1. ~~upravit `v1.yaml` pro __Swagger__ (sekce _Security_)~~
-  2. ~~vyzkoušet v [Postman](https://www.postman.com/downloads/) a znova vyexportovat kolekci~~
-  3. ~~upravit stávající testovací _http requests_~~
-  4. ~~upravit stávající API testy~~
-  5. ~~odeslat do GitHub repozitáře a mergnout~~
-- zkusit udělat GitHub CI tak, aby se po aktualizaci spustil __PhpStan__ a __PhpUnit__
-- aktualizovat finálně `README.md` a znovu vyzkoušet
-- __nakonec znova přečíst zadání, celé si to zkontrolovat a API jako takové uzavřít, pak jít na FE.__ Případně přidělat ty volitelné sekce, jako je filtrování, stránkování a vyhledávání ve filmech.
-- [!CAUTION] __Front-End__
+Řešení zkušebního příkladu.
+
+## Stručný popis
+
+- je to založeno na frameworku __Laravel__
+- jako databáze je použita SQLite
+- schéma je poměrně jednoduché (jsou zde zobrazeny pouze mnou vytvořené tabulky, ostatní pocházejí přímo z frameworku):
+  ```mermaid
+  erDiagram
+    genres {
+      bigint id
+      text name
+      text color
+    }
+    genre_movie {
+      bigint movie_id
+      bigint genre_id
+    }
+    movies {
+      bigint id
+      text name
+      text description
+      text csfd
+      text imdb
+      text created_at
+      text updated_at
+    }
+
+    genres ||--o{ genre_movie : fk_genre_to_movie
+    movies ||--o{ genre_movie : fk_movie_to_genre
+  ```
+- jinak databáze se vytvoří pomocí automaticky pomocí _CLI_ příkazu (viz. níže) a lze rovnou i vygenerovat testovací data (doporučuji); databáze samotná je pak v `database/database.sqlite`
+- pro uživatele je možno vygenerovat tzv. _personal access token_ a oprávnění jsou jednoduchá:
+  1. autorizovaní uživatelé mohou vytvářet nové filmy a prohlížet všechny stávající
+  2. upravovat či mazat filmy mohou jen užitelé, kteří daný film vytvořili
+- součástí jsou testy pro API; unit testy jako takové nejsou
+- pro kontrolu/opravu kvality kódu se používá [Laravel Pint](https://laravel.com/docs/11.x/pint)
 
 ## Poznámky pro vývojáře
 
@@ -90,3 +109,6 @@ docker compose exec api ash -c "./artisan app:create-personal-access-token"
 ```
 
 Volby potvrdíme (stačí nám defaultní hodnoty) a vygenerovaný token si zkopírujeme pro použití například ve Swaggeru. Token vygenerovaný příkazem výše s defaultními hodnotami má platnost časově neomezenou.
+
+
+ > __Pozn.__ V [tomto souboru](./docs/README.md) jsou popsány všechny dostupné soubory pro testování API vývojáři

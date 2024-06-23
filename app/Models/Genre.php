@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  * @property string $name
  * @property string|null $color
  * @property-read User|null $user
- * @property-read Collection<Movies>|Movie[] $movies
+ * @property-read Collection<Movie>|Movie[] $movies
  */
 class Genre extends Model
 {
