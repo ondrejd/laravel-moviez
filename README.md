@@ -6,7 +6,7 @@
 
 - je to založeno na frameworku __Laravel__
 - jako databáze je použita SQLite
-- schéma je poměrně jednoduché (jsou zde zobrazeny pouze mnou vytvořené tabulky, ostatní pocházejí přímo z frameworku):
+- schéma je poměrně jednoduché (jsou zde zobrazeny pouze mnou vytvořené tabulky, ostatní pocházejí přímo z frameworku, včetně _users_, které je tady naznačena):
   ```mermaid
   erDiagram
     genres {
@@ -20,6 +20,7 @@
     }
     movies {
       bigint id
+      bigint user_id
       text name
       text description
       text csfd
@@ -27,7 +28,11 @@
       text created_at
       text updated_at
     }
+    users {
+      bigint id
+    }
 
+    movies ||--o{ users : fk_movie_to_user
     genres ||--o{ genre_movie : fk_genre_to_movie
     movies ||--o{ genre_movie : fk_movie_to_genre
   ```
