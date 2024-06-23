@@ -1,0 +1,81 @@
+
+### GET Výpis filmových žánrů
+GET {{apiUrl}}/genres
+Accept: application/json
+Accept-Charset: UTF-8
+#Authorization: Bearer {{token}}
+
+
+
+### GET Výpis filmů
+GET {{apiUrl}}/movies
+Accept: application/json
+Accept-Charset: UTF-8
+#Authorization: Bearer {{token}}
+
+
+
+### POST Vytvoření nového filmu
+POST {{apiUrl}}/movies
+Accept: application/json
+Accept-Charset: UTF-8
+Content-Type: application/json
+#Authorization: Bearer {{token}}
+
+{
+    "Name": "Rebocop",
+    "Description": "Movie about robotic cop.",
+    "Genres": [3, 5],
+    "Csfd": null,
+    "Imdb": null
+}
+
+> {%
+    client.test("Dotaz byl úspěšně spuštěn", function () {
+        // Pro použití v následujících requestech si uložíme ID nového filmu...
+        client.global.set("movieId", response.body.Id);
+    });
+%}
+
+
+
+### GET Zobrazení detailu filmu
+GET {{apiUrl}}/movies/{{movieId}}
+# Pozor {{movieId}}} je převzato z předcházejícího dotazu...
+Accept: application/json
+Accept-Charset: UTF-8
+#Authorization: Bearer {{token}}
+
+
+
+### PUT Upravení vybraného filmu
+PUT {{apiUrl}}/movies/{{movieId}}
+# Pozor {{movieId}}} je převzato z předcházejícího dotazu...
+Accept: application/json
+Accept-Charset: UTF-8
+Content-Type: application/json
+#Authorization: Bearer {{token}}
+
+{
+    "Name": "Robocop",
+    "Description": "Pretty bad movie about robotic cop.",
+    "Genres": [5],
+    "Csfd": "https://www.csfd.cz/robocop"
+}
+
+> {%
+    client.test("Dotaz byl úspěšně spuštěn", function () {
+        client.assert(client.global.get("movieId"), response.body.Id);
+        client.assert("Robocop", response.body.Name);
+    });
+%}
+
+
+
+### DELETE Smazání vybraného filmu
+DELETE {{apiUrl}}/movies/{{movieId}}
+# Pozor {{movieId}}} je převzato z předcházejícího dotazu...
+Accept: application/json
+Accept-Charset: UTF-8
+Content-Type: application/json
+#Authorization: Bearer {{token}}

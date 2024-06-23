@@ -1,0 +1,268 @@
+openapi: 3.0.3
+
+info:
+  title: Moviez API
+  description: |-
+    __Ukázkové API zpřístupňující databázi filmů.__
+    
+    Hlavní vlastnosti:
+    - přístup k seznamu filmů a dostupných filmových žánrů
+    - možnost pro vytvoření, editaci a smazání filmů
+    - API je chráněno uživatelským tokenem, který by měl být v rámci dotazu v hlavičce (`Authorization: Bearer {token}`)
+    - platí tato pravidla pro oprávnění:
+      - čtení dat a vytvoření nového filmu je přístupné všem uživatelům s platným tokenem
+      - úprava a smazání vybraného filmu je dostupné jen uživateli, který film vytvořil
+
+    Odkazy:
+    - [GitHub repozitář](https://github.com/ondrejd/moviez-example/laravel-moviez)
+  contact:
+    email: ondrejd@gmail.com
+  version: "1.0"
+
+servers:
+  - url: "http://127.0.0.1:8001/api/v1"
+
+tags:
+  - name: Movie
+    description: "Operace okolo filmů."
+  - name: Genre
+    description: "Operace okolo filmových žánrů."
+
+paths:
+
+  #
+  # Genres
+  #
+
+  /genres:
+    get:
+      tags:
+        - Genre
+      summary: "Seznam s dostupnými žánry."
+      description: |-
+        API poskytuje pouze referenční seznam pro potřeby _front-end_ aplikací, jinak lze filmové žánry vytvořit, editovat či mazat __pouze na úrovni aplikace__ přes přímý přístup k databázi či přes _CLI_.
+      operationId: genreList
+      responses:
+        '200':
+          description: "Seznam žánrů."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Genre'
+        '403':
+          description: "Dotaz nebyl proveden s platným přístupovým tokenem."
+
+  #
+  # Movies
+  #
+
+  /movies:
+    get:
+      tags:
+        - Movie
+      summary: "Seznam s filmy."
+      operationId: movieList
+      responses:
+        '200':
+          description: "Seznam filmů."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        '403':
+          description: "Dotaz nebyl proveden s platným přístupovým tokenem."
+    post:
+      tags:
+        - Movie
+      summary: "Vytvoření nového filmu."
+      operationId: movieStore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieRequest'
+            example: {"Name": "Rebocop", "Description": "Movie about robotic cop.", "Genres": [3, 5], "Csfd": null, "Imdb": null}
+      responses:
+        '200':
+          description: "Film byl úspěšně vytvořen."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '403':
+          description: "Dotaz nebyl proveden s platným přístupovým tokenem."
+  /movies/{movieId}:
+    parameters:
+      - $ref: '#/components/parameters/MovieId'
+    get:
+      tags:
+        - Movie
+      summary: "Detailní informace o filmu."
+      operationId: movieShow
+      responses:
+        '200':
+          description: "Detail filmu."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        '403':
+          description: "Dotaz nebyl proveden s platným přístupovým tokenem."
+        '404':
+          description: "Film dle zadaného ID nebyl nalezen."
+    put:
+      tags:
+        - Movie
+      summary: "Upravení vybraného filmu."
+      description: |-
+        Pokud nepošlete volitelná data (např. `Description`), tak hodnoty dané položky zůstanou nezměněny.
+
+        Pokud pošlete nulovou hodnotu pro danou položku, stávající hodnota bude vymazána.
+      operationId: movieUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieRequest'
+            example: {"Name": "Robocop", "Description": "Pretty bad movie about robotic cop.", "Genres": [3, 5], "Csfd": null, "Imdb": null}
+      responses:
+        '200':
+          description: "Film byl úspěšně aktualizován."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '403':
+          description: "Uživatel nemá oprávnění na editaci filmu, to má pouze uživatel, který film vytvořil."
+        '404':
+          description: "Film dle zadaného ID nebyl nalezen."
+    delete:
+      tags:
+        - Movie
+      summary: "Smazání vybraného filmu."
+      operationId: movieDestroy
+      responses:
+        '200':
+          description: "Film byl úspěšně smazán."
+        '403':
+          description: "Uživatel nemá oprávnění na smazání filmu, to má pouze uživatel, který film vytvořil."
+        '404':
+          description: "Film dle zadaného ID nebyl nalezen."
+
+#
+# Security
+#
+
+security:
+  - bearerAuth: []
+
+#
+# Components
+#
+
+components:
+  parameters:
+    MovieId:
+      name: movieId
+      in: path
+      description: "ID filmu"
+      required: true
+      schema:
+        type: integer
+        format: int32
+  schemas:
+    Genre:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          example: 5
+        Name:
+          type: string
+          example: "Akční"
+        Color:
+          type: string
+          nullable: true
+          example: "#ff3300"
+    Movie:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          example: 8
+        Name:
+          type: string
+          example: "Terminator"
+        Description:
+          type: string
+          nullable: true
+          example: "Quia et dolorem similique distinctio aliquid. Et ut repellat et nobis nulla et repellat. Et adipisci animi est nulla. Maiores quibusdam molestiae temporibus iste optio aperiam aut eius. Rerum culpa asperiores itaque."
+        Genres:
+          description: "Pole připojených žánrů."
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+        Csfd:
+          description: "Odkaz na ČSFD."
+          type: string
+          nullable: true
+          example: null
+        Imdb:
+          description: "Odkaz na IMDB."
+          type: string
+          nullable: true
+          example: null
+    MovieRequest:
+      description: "Popisuje film pro vytvoření či editaci."
+      type: object
+      properties:
+        Name:
+          type: string
+        Description:
+          type: string
+          nullable: true
+        Genres:
+          description: "Pole s ID filmových žánrů."
+          type: array
+          items:
+            type: integer
+            format: int32
+        Csfd:
+          description: "Odkaz na ČSFD (lze použít pouze HTTPS protokol)."
+          type: string
+          nullable: true
+        Imdb:
+          description: "Odkaz na IMDB (lze použít pouze HTTPS protokol)."
+          type: string
+          nullable: true
+      required:
+        - Name
+    #
+    # TODO Toto by měla být základní odpověď - všechny by ji měly rozšiřovat ...
+    #
+    ApiResponse:
+      type: object
+      properties:
+        Type:
+          type: string
+          enum:
+            - success
+            - error
+          example: "success"
+        Message:
+          type: string
+          example: "Film byl úspěšně smazán."
+      required: [Type, Message]
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
